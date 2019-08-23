@@ -1,3 +1,3 @@
 module.exports = {
-    connectionString : "mongodb+srv://admin:854923@cluster0-jfviq.mongodb.net/test?retryWrites=true&w=majority"
+    connectionString : "mongodb+srv://alex:854923@cluster0-yqsf3.mongodb.net/test?retryWrites=true&w=majority"
 }
