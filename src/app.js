@@ -14,8 +14,6 @@ try {
   console.log('Não foi possível conectar ao banco de dados.' + error);
 }
 
-
-
 const app = express();
 
 //carrega as rotas

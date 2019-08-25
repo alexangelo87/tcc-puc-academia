@@ -4,22 +4,30 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    nome:{
+    nome: {
         type:String,
         required:true 
     },
-    identidade:{
+    identidade: {
         type:String,
         required:true
     },
-    cpf:{
+    cpf: {
         type:String,
         required:true
     },
-    endereco:[{
+    endereco: {
         type:String,
-        required:true,
-    }]
+        required:true
+    },
+    email : {
+        type: String,
+        required : true
+    },
+    senha : {
+        type: String,
+        required :true
+    }
 });
 
 module.exports = mongoose.model('Cliente', schema);
