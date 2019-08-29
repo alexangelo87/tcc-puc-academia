@@ -49,19 +49,23 @@ exports.isAdmin = function (req, res, next) {
 }
 
 //authenticate
-exports.authenticate = async (req, res) => {
+exports.authenticate = async (req) => {
     try {
-        const cliente = await Cliente.findOne
-        ({
+        const cliente = await Cliente.findOne({
             email: req.body.email,
-            senha : req.body.senha
-            // password: md5(req.body.password + global.SALT_KEY)
+            senha : md5(req.body.senha + global.SALT_KEY)
         });
 
         if (!cliente) {
-            res.status(404).json({
-                message: "Usuário ou senha inválidos"
-            });
+            return {
+                statusCode: 404,
+                data : {
+                    message : "Usuário ou senha inválidos"
+                }
+            }
+            // res.status(404).json({
+            //     message: "Usuário ou senha inválidos"
+            // });
         }
 
         const token = await this.generateToken({
@@ -71,19 +75,28 @@ exports.authenticate = async (req, res) => {
             //roles: customer.roles
         });
 
-
-        await res.status(201).json({
-            token: token,
-            data: {
+        return {
+            statusCode : 201,
+            data : {
+                token: token,
                 email: cliente.email,
                 nome: cliente.nome
             }
-        });
-    } catch (e) {
-        res.status(500).json({
-            message: "Erro ao processar sua requisição.",
-            data: e
-        });
+        }
+        // await res.status(201).json({
+        //     token: token,
+        //     data: {
+        //         email: cliente.email,
+        //         nome: cliente.nome
+        //     }
+        // });
+    } catch (error) {
+        return {
+            statusCode: 500,
+            data : {
+                message : error
+            }
+        };
     }
 };
 

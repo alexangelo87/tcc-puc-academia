@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Cliente = mongoose.model('Cliente');
 const {authenticate} = require('../services/authService');
+const md5 = require('md5');
 
 exports.get = async (req, res) => {
     try{
@@ -19,7 +20,14 @@ exports.post = async (req, res) => {
         if(!req.body){
             throw 'body não definido';
         }
-        let cliente = new Cliente(req.body);
+        let cliente = new Cliente({
+            nome : req.body.nome,
+            identidade : req.body.identidade,
+            cpf : req.body.cpf,
+            endereco : req.body.endereco,
+            email : req.body.email,
+            senha : md5(req.body.senha + global.SALT_KEY)
+        });
         await cliente.save();
         res.status(201).json({message : "Cliente cadastrado com sucesso"})
     }catch (error){
@@ -28,9 +36,6 @@ exports.post = async (req, res) => {
 }
 
 exports.postAuth = async (req, res) => {
-    try{
-        await authenticate(req, res);
-    } catch(error){
-        console.log(error)
-    }
+    const response = await authenticate(req);
+    res.status(response.statusCode).json(response.data);
 }
