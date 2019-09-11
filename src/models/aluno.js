@@ -20,14 +20,10 @@ const schema = new Schema({
         type:String,
         required:true
     },
-    email : {
-        type: String,
-        required : true
-    },
-    senha : {
-        type: String,
-        required :true
+    User : {
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
-module.exports = mongoose.model('Cliente', schema);
+module.exports = mongoose.model('Aluno', schema);

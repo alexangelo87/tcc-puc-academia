@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const config = require('../src/config');
 
 //carrega os modelos
-const Cliente = require('./models/cliente');
+const Users = require('./models/user');
+const Aluno = require('./models/aluno');
 
 //conexao com o banco de dados
 try {
@@ -18,7 +19,8 @@ const app = express();
 
 //carrega as rotas
 const indexRoute = require('./routes/indexRoute');
-const clienteRoute = require('./routes/clienteRoute');
+const alunoRoute = require('./routes/alunoRoute');
+const userRoute = require('./routes/userRoute');
 
 
 
@@ -34,6 +36,7 @@ app.use(function (req,res,next){
 });
 //rotas
 app.use('/', indexRoute);
-app.use('/clientes', clienteRoute);
+app.use('/alunos', alunoRoute);
+app.use('/users', userRoute);
 
 module.exports = app;

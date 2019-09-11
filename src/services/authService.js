@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 const mongoose = require('mongoose');
-const Cliente = mongoose.model('Cliente');
+const User = mongoose.model('User');
 
 exports.generateToken = async (data) => {
     return jwt.sign(data, global.SALT_KEY, { expiresIn: '1d' });
@@ -51,7 +51,7 @@ exports.isAdmin = function (req, res, next) {
 //authenticate
 exports.authenticate = async (req) => {
     try {
-        const cliente = await Cliente.findOne({
+        const cliente = await User.findOne({
             email: req.body.email,
             senha : md5(req.body.senha + global.SALT_KEY)
         });
@@ -63,9 +63,6 @@ exports.authenticate = async (req) => {
                     message : "Usuário ou senha inválidos"
                 }
             }
-            // res.status(404).json({
-            //     message: "Usuário ou senha inválidos"
-            // });
         }
 
         const token = await this.generateToken({
@@ -109,7 +106,7 @@ exports.refreshToken = async (req, res) => {
 
         if (!customer) {
             res.status(404).send({
-                message: "Cliente não encontrado"
+                message: "User não encontrado"
             });
         }
 

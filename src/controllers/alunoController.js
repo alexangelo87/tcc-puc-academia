@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const Cliente = mongoose.model('Cliente');
-const {authenticate} = require('../services/authService');
+const Aluno = mongoose.model('Aluno');
 const md5 = require('md5');
 
 exports.get = async (req, res) => {
     try{
-        let data  = await Cliente.find({});
+        let data  = await Aluno.find({});
         res.status(200).send(data);
     }catch(e){
         res.status(500).send({
@@ -20,7 +19,7 @@ exports.post = async (req, res) => {
         if(!req.body){
             throw 'body não definido';
         }
-        let cliente = new Cliente({
+        let aluno = new Aluno({
             nome : req.body.nome,
             identidade : req.body.identidade,
             cpf : req.body.cpf,
@@ -28,14 +27,10 @@ exports.post = async (req, res) => {
             email : req.body.email,
             senha : md5(req.body.senha + global.SALT_KEY)
         });
-        await cliente.save();
-        res.status(201).json({message : "Cliente cadastrado com sucesso"})
+        await aluno.save();
+        res.status(201).json({message : "Aluno cadastrado com sucesso"})
     }catch (error){
-        res.status(500).json({message : `Erro ao salvar o cliente: ${error}`});
+        res.status(500).json({message : `Erro ao salvar o aluno: ${error}`});
     } 
 }
 
-exports.postAuth = async (req, res) => {
-    const response = await authenticate(req);
-    res.status(response.statusCode).json(response.data);
-}
