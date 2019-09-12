@@ -6,6 +6,10 @@ const { authorize } = require("../services/authService");
 router.get("/", userController.get);
 //post
 router.post("/", userController.post);
+//put
+router.put("/", userController.put);
+//delete
+router.delete("/", userController.delete);
 //auth
 router.post("/auth", userController.postAuth);
 

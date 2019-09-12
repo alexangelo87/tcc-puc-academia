@@ -51,12 +51,12 @@ exports.isAdmin = function (req, res, next) {
 //authenticate
 exports.authenticate = async (req) => {
     try {
-        const cliente = await User.findOne({
+        const user = await User.findOne({
             email: req.body.email,
             senha : md5(req.body.senha + global.SALT_KEY)
         });
 
-        if (!cliente) {
+        if (!user) {
             return {
                 statusCode: 404,
                 data : {
@@ -66,27 +66,20 @@ exports.authenticate = async (req) => {
         }
 
         const token = await this.generateToken({
-            id: cliente._id,
-            email: cliente.email,
-            nome: cliente.nome,
-            //roles: customer.roles
+            id: user._id,
+            email: user.email,
+            nome: user.nome,
+            roles: user.roles
         });
 
         return {
             statusCode : 201,
             data : {
                 token: token,
-                email: cliente.email,
-                nome: cliente.nome
+                email: user.email,
+                nome: user.nome
             }
         }
-        // await res.status(201).json({
-        //     token: token,
-        //     data: {
-        //         email: cliente.email,
-        //         nome: cliente.nome
-        //     }
-        // });
     } catch (error) {
         return {
             statusCode: 500,
@@ -102,27 +95,27 @@ exports.refreshToken = async (req, res) => {
     try {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const data = await this.decodeToken(token);
-        const customer = await this.getById(data.id);
+        const user = await this.getById(data.id);
 
-        if (!customer) {
+        if (!user) {
             res.status(404).send({
                 message: "User não encontrado"
             });
         }
 
         const tokenData = await this.generateToken({
-            id: customer._id,
-            email: customer.email,
-            name: customer.name,
-            roles: customer.roles
+            id: user._id,
+            email: user.email,
+            name: user.name,
+            roles: user.roles
         });
 
 
         await res.status(201).send({
             token: tokenData,
             data: {
-                email: customer.email,
-                name: customer.name
+                email: user.email,
+                name: user.name
             }
         });
     } catch (e) {
