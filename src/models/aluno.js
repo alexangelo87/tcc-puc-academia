@@ -20,7 +20,7 @@ const schema = new Schema({
         type:String,
         required:true
     },
-    User : {
+    user : {
         type:mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
