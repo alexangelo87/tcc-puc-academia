@@ -27,7 +27,8 @@ exports.getById = async (req, res) => {
 
 exports.getUserAluno = async (req, res) => {
     try{
-        let data  = await Aluno.find({ user : { _id: '5d785b2c65ac56289896868b' } })
+        let id = req.params.id;
+        let data  = await Aluno.find({ user : { _id: id } })
         res.status(200).send(data);
     }catch(error){
         res.status(500).send({

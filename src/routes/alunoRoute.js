@@ -5,8 +5,8 @@ const { authorize } = require("../services/authService");
 //get
 router.get("/", alunoController.get);
 //get :id
-router.get("/busca/:id", alunoController.getById);
-router.get("/user", alunoController.getUserAluno);
+router.get("/:id", alunoController.getById);
+router.get("/users/:id", alunoController.getUserAluno);
 //post
 router.post("/", alunoController.post);
 

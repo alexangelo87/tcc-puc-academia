@@ -5,18 +5,17 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
   nome: {
-    type:String,
-    required:true 
-  },
-  email: {
     type: String,
     required: true
   },
-  senha: {
+  cpf: {
     type: String,
     required: true
   },
-  roles: []
+  identidade: {
+    type: String,
+    required: true
+  }
 });
 
-module.exports = mongoose.model('User', schema);
+module.exports = mongoose.model('Instrutor', schema);
