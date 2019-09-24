@@ -59,3 +59,23 @@ exports.post = async (req, res) => {
     } 
 }
 
+exports.put = async (req, res) => {
+    try{
+        await Aluno.findOneAndUpdate(req.body.id, req.body, {new: true});
+        res.status(200).json({
+            message: "Aluno foi alterado com sucesso."
+        });
+    }catch(error) {
+        res.status(500).json({message : `Erro ao alterar os dados do aluno: ${error}`});
+    }
+}
+
+exports.delete = async (req, res) => {
+    try{
+        let response = await Aluno.findOneAndDelete({ _id: req.body.id });
+        res.status(200).json({message : `${response.nome} excluido(a) com sucesso!`})
+    }catch(error){
+        res.status(500).json({message : `Erro ao exluir aluno: ${error}`});
+    }
+}
+
