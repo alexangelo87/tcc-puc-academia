@@ -21,6 +21,7 @@ exports.post = async (req, res) => {
             throw 'body não definido';
         }
         let user = new User({
+            nome: req.body.nome,
             roles: req.body.roles,
             email : req.body.email,
             senha : md5(req.body.senha + global.SALT_KEY)

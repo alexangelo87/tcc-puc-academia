@@ -18,9 +18,10 @@ try {
 const app = express();
 
 //carrega as rotas
+const userRoute = require('./routes/userRoute');
 const indexRoute = require('./routes/indexRoute');
 const alunoRoute = require('./routes/alunoRoute');
-const userRoute = require('./routes/userRoute');
+
 
 
 

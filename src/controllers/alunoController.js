@@ -3,7 +3,7 @@ const Aluno = mongoose.model('Aluno');
 
 exports.get = async (req, res) => {
     try{
-        let data  = await Aluno.find({}).populate('user', 'id');
+        let data  = await Aluno.find({}).populate('user', 'nome');
         res.status(200).send(data);
     }catch(error){
         res.status(500).send({
