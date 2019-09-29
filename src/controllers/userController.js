@@ -26,8 +26,8 @@ exports.post = async (req, res) => {
             email : req.body.email,
             senha : md5(req.body.senha + global.SALT_KEY)
         });
-        await user.save();
-        res.status(201).json({message : "Usuário cadastrado com sucesso"})
+        let data = await user.save();
+        res.status(201).json({message : "Usuário cadastrado com sucesso", data})
     }catch (error){
         res.status(500).json({message : `Erro ao salvar o usuário: ${error}`});
     } 
