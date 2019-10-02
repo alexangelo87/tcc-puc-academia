@@ -13,5 +13,7 @@ router.post("/", alunoController.post);
 router.put("/", alunoController.put);
 //delete
 router.delete("/", alunoController.delete);
+//delete all
+router.delete("/deleteall", alunoController.deleteAll);
 
 module.exports = router;

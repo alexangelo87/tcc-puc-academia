@@ -10,6 +10,8 @@ router.post("/", userController.post);
 router.put("/", userController.put);
 //delete
 router.delete("/", userController.delete);
+//deleteAll
+router.delete("/deleteall", userController.deleteAll);
 //auth
 router.post("/auth", userController.postAuth);
 
