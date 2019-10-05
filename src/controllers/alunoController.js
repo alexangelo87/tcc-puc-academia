@@ -72,7 +72,7 @@ exports.put = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try{
-        let response = await Aluno.findOneAndDelete({ _id: req.body.id });
+        let response = await Aluno.findOneAndDelete({ _id: req.params.id });
         res.status(200).json({message : `${response.nome} excluido(a) com sucesso!`});
     }catch(error){
         res.status(500).json({message : `Erro ao excluir aluno: ${error}`});

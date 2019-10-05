@@ -12,7 +12,7 @@ router.post("/", alunoController.post);
 //put
 router.put("/", alunoController.put);
 //delete
-router.delete("/", alunoController.delete);
+router.delete("/:id", alunoController.delete);
 //delete all
 router.delete("/deleteall", alunoController.deleteAll);
 
