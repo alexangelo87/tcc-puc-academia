@@ -27,7 +27,7 @@ exports.post = async (req, res) => {
             senha : md5(req.body.senha + global.SALT_KEY)
         });
         let data = await user.save();
-        res.status(201).json({message : "Usuário cadastrado com sucesso", data})
+        res.status(201).json(data);
     }catch (error){
         res.status(500).json({message : `Erro ao salvar o usuário: ${error}`});
     } 
@@ -65,6 +65,20 @@ exports.delete = async (req, res) => {
         });
     }
     
+}
+
+exports.deleteAll = async (req, res) => {
+    try{
+        await User.deleteMany({});
+        res.status(200).json({
+            message: "Usuários excluídos com sucesso!"
+        });
+    }catch(error) {
+        res.status(500).json({
+            message: "Erro ao deletar usuário",
+            error
+        });
+    }
 }
 
 exports.postAuth = async (req, res) => {

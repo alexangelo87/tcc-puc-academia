@@ -15,7 +15,7 @@ exports.get = async (req, res) => {
 
 exports.getById = async (req, res) => {
     try {
-        let aluno = await Aluno.findById(req.params.id);
+        let aluno = await Aluno.findById(req.params.id).populate('user', 'nome');
         res.status(200).json(aluno);
     }catch(error) {
         res.status(500).send({
@@ -73,9 +73,18 @@ exports.put = async (req, res) => {
 exports.delete = async (req, res) => {
     try{
         let response = await Aluno.findOneAndDelete({ _id: req.body.id });
-        res.status(200).json({message : `${response.nome} excluido(a) com sucesso!`})
+        res.status(200).json({message : `${response.nome} excluido(a) com sucesso!`});
     }catch(error){
-        res.status(500).json({message : `Erro ao exluir aluno: ${error}`});
+        res.status(500).json({message : `Erro ao excluir aluno: ${error}`});
+    }
+}
+
+exports.deleteAll = async (req, res) => {
+    try {
+        await Aluno.deleteMany({});
+        res.status(200).json({message : `Todos os alunos excluidos com sucesso!`})
+    } catch (error) {
+        res.status(500).json({message : `Erro ao excluir alunos: ${error}`});
     }
 }
 
