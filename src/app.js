@@ -7,6 +7,7 @@ const config = require('../src/config');
 //carrega os modelos
 const Users = require('./models/user');
 const Aluno = require('./models/aluno');
+const Instrutor = require('./models/instrutor');
 
 //conexao com o banco de dados
 try {
@@ -21,9 +22,7 @@ const app = express();
 const userRoute = require('./routes/userRoute');
 const indexRoute = require('./routes/indexRoute');
 const alunoRoute = require('./routes/alunoRoute');
-
-
-
+const instrutorRoute = require('./routes/instrutorRoute');
 
 app.use(bodyParser.json({
     limit:'5mb'
@@ -39,5 +38,6 @@ app.use(function (req,res,next){
 app.use('/', indexRoute);
 app.use('/alunos', alunoRoute);
 app.use('/users', userRoute);
+app.use('/instrutores', instrutorRoute);
 
 module.exports = app;

@@ -15,6 +15,11 @@ const schema = new Schema({
   identidade: {
     type: String,
     required: true
+  },
+  atividade: {
+    type: String,
+    enum: ["musculacao", "grupo"],
+    default: "musculacao"
   }
 });
 
