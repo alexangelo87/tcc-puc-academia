@@ -16,7 +16,12 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  alunos: [],
+  aluno: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Aluno"
+    }
+  ],
   instrutor: [
     {
       type: mongoose.Schema.Types.ObjectId,
