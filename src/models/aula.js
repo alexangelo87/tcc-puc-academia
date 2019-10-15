@@ -16,18 +16,16 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  aluno: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Aluno"
+  // aluno: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "Aluno"
+  //   }
+  // ],
+  instrutor: {
+      type: String,
+      required: true
     }
-  ],
-  instrutor: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Instrutor"
-    }
-  ]
 });
 
 module.exports = mongoose.model('Aula', schema);

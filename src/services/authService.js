@@ -13,7 +13,7 @@ exports.decodeToken = async (token) => {
 }
 
 exports.authorize = function (req, res, next) {
-    let token = req.body.token || req.query.token || req.headers['x-access-token'];
+    let token = req.body.token || req.query.token || req.headers['x_access_token'];
     if (!token) {
         res.status(401).json({ message: "Acesso restrito!" });
     } else {
@@ -28,7 +28,7 @@ exports.authorize = function (req, res, next) {
 }
 
 exports.isAdmin = function (req, res, next) {
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.body.token || req.query.token || req.headers['x_access_token'];
 
     if (!token) {
         res.status(401).json({ message: "Acesso restrito!" });
@@ -76,7 +76,8 @@ exports.authenticate = async (req) => {
             data : {
                 token: token,
                 email: user.email,
-                nome: user.nome
+                nome: user.nome,
+                roles: user.roles
             }
         }
     } catch (error) {
@@ -92,7 +93,7 @@ exports.authenticate = async (req) => {
 //refreshToken
 exports.refreshToken = async (req, res) => {
     try {
-        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const token = req.body.token || req.query.token || req.headers['x_access_token'];
         const data = await this.decodeToken(token);
         const user = await this.getById(data.id);
 

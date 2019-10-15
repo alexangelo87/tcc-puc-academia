@@ -61,8 +61,8 @@ exports.delete = async (req, res) => {
 exports.deleteAll = async (req, res) => {
     try {
         await Instrutor.deleteMany({});
-        res.status(200).json({message : `Todos os alunos excluidos com sucesso!`})
+        res.status(200).json({message : `Todos os instrutores excluidos com sucesso!`})
     } catch (error) {
-        res.status(500).json({message : `Erro ao excluir alunos: ${error}`});
+        res.status(500).json({message : `Erro ao excluir instrutores: ${error}`});
     }
 }
