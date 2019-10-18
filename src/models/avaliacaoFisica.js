@@ -12,7 +12,7 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  examErgometrico: {
+  exameErgometrico: {
     type: String,
     required: true
   }
