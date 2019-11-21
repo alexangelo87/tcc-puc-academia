@@ -20,14 +20,20 @@ exports.post = async (req, res) => {
         if(!req.body){
             throw 'body não definido';
         }
-        let user = new User({
-            nome: req.body.nome,
-            roles: req.body.roles,
-            email : req.body.email,
-            senha : md5(req.body.senha + global.SALT_KEY)
-        });
-        let data = await user.save();
-        res.status(201).json(data);
+        let findUser = await User.findOne({ "email" : req.body.email });
+
+        if(findUser) {
+            res.status(400).json({message: "Usuário já existe na base"})
+        } else {
+            let user = new User({
+                nome: req.body.nome,
+                roles: req.body.roles,
+                email : req.body.email,
+                senha : md5(req.body.senha + global.SALT_KEY)
+            });
+            let data = await user.save();
+            res.status(201).json(data);
+        }
     }catch (error){
         res.status(500).json({message : `Erro ao salvar o usuário: ${error}`});
     } 
